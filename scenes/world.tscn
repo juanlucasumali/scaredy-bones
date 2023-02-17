@@ -40,9 +40,6 @@ func _on_MobTimer_timeout():
 	add_child(mob)
 	
 	mob.position = mob_spawn_location.position
-	
-	 # Spawn the mob by adding it to the Main scene.
-	add_child(mob)
 
 
 func _on_ScoreTimer_timeout():
@@ -78,8 +75,8 @@ __meta__ = {
 position = Vector2( 0, 98 )
 
 [node name="sea" parent="." instance=ExtResource( 5 )]
-visible = false
 position = Vector2( 0, 302 )
+z_index = 1
 __meta__ = {
 "_edit_lock_": true
 }
