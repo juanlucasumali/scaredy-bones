@@ -58,7 +58,6 @@ gravity_scale = 0.0
 position = Vector2( 0, 29 )
 scale = Vector2( 0.941489, 0.941489 )
 frames = SubResource( 10 )
-frame = 4
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

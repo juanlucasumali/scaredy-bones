@@ -1,5 +1,7 @@
 extends KinematicBody2D
 
+signal hit
+
 export var UP = Vector2(0, -1)
 export var GRAVITY = 40
 export var MAX_FALL_SPEED = 900
@@ -10,12 +12,7 @@ var jump_hold = false
 var facing_right = true
 var screen_size
 
-
 var motion = Vector2()
-
-func start(pos):
-	position = pos
-	show()
 
 func _ready():
 	screen_size = _get_camera_center()
@@ -71,3 +68,16 @@ func _physics_process(delta):
 		
 	
 	motion = move_and_slide(motion, UP)
+
+
+func _on_Player_body_entered(body):
+	hide() # Player disappears after being hit.
+	emit_signal("hit")
+	# Must be deferred as we can't change physics properties on a physics callback.
+	$CollisionShape2D.set_deferred("disabled", true)
+
+func start(pos):
+	position = pos
+	show()
+	$CollisionShape2D.disabled = false
+	
