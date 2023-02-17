@@ -1,20 +1,19 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://scenes/player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/raft.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/mob.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/sea.tscn" type="PackedScene" id=5]
 
 [sub_resource type="GDScript" id=1]
-script/source = "extends Node2D
+script/source = "extends Node
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = \"text\"
+export(PackedScene) var mob_scene #  Chooses the Mob scene we want to instance.
+var score
 
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	pass
+	randomize()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -22,17 +21,51 @@ func _ready():
 #	pass
 "
 
+[sub_resource type="Curve2D" id=2]
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, 0, 302, 0, 0, 0, 0, -472, 321, 0, 0, 0, 0, 479, 267, 0, 0, 0, 0, 0, 302 )
+}
+
 [node name="world" type="Node2D"]
 script = SubResource( 1 )
+mob_scene = ExtResource( 3 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2( 0, 130 )
 current = true
 
 [node name="raft" parent="." instance=ExtResource( 2 )]
-position = Vector2( -1, 194 )
+position = Vector2( 0, 194 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="player" parent="." instance=ExtResource( 1 )]
+position = Vector2( 0, 98 )
+UP = Vector2( 0, -1 )
+GRAVITY = 40
+MAX_FALL_SPEED = 900
+MAX_SPEED = 300
+MAX_JUMP_VELOCITY = 1000
+ACCELERATION = 80
 
 [node name="sea" parent="." instance=ExtResource( 5 )]
-position = Vector2( 3, 312 )
+position = Vector2( 0, 302 )
+
+[node name="MobTimer" type="Timer" parent="."]
+wait_time = 0.5
+
+[node name="ScoreTimer" type="Timer" parent="."]
+
+[node name="StartTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="StartPosition" type="Position2D" parent="."]
+
+[node name="MobPath" type="Path2D" parent="."]
+curve = SubResource( 2 )
+
+[node name="MobSpawnLocation" type="PathFollow2D" parent="MobPath"]
+position = Vector2( 0, 302 )
+rotation = 3.10135

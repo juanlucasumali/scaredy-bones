@@ -50,6 +50,7 @@ animations = [ {
 extents = Vector2( 666.049, 147.778 )
 
 [node name="sea" type="RigidBody2D"]
+collision_mask = 0
 mode = 1
 gravity_scale = 0.0
 
@@ -57,7 +58,7 @@ gravity_scale = 0.0
 position = Vector2( 0, 29 )
 scale = Vector2( 0.941489, 0.941489 )
 frames = SubResource( 10 )
-frame = 8
+frame = 4
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
